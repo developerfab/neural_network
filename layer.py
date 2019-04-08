@@ -12,8 +12,22 @@ class Layer:
        self.create_neurons(count) 
 
     def create_neurons(self, count):
-        for i in range(1, count):
-            self.neurons.append(Neuron(random.random(), 0))
+        for i in range(1, count+1):
+            self.neurons.append(Neuron())
 
-layer = Layer(3)
-layer.neurons
+    def assing_vertex(self, pre_layer):
+        for my_neuron in self.neurons:
+            for neuron in pre_layer.neurons:
+                my_neuron.assing_vertex(id(neuron), random.randint(1,1000))
+
+layer1 = Layer(3)
+print(layer1.neurons)
+layer2 = Layer(3)
+print(layer2.neurons)
+
+# related layers
+print("---- Related Layers ----")
+layer2.assing_vertex(layer1)
+for neuron in layer2.neurons:
+    print neuron
+    print neuron.vertex_information
