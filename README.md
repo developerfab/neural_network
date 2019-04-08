@@ -9,3 +9,7 @@ In this project I try to understand how to create a neural network.
 ### Neuron
 
 ![alt text](https://raw.githubusercontent.com/developerfab/neural_network/master/images/explanation.png)
+
+## Sources
+
+[MNIST](http://yann.lecun.com/exdb/mnist/)

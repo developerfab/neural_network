@@ -20,6 +20,10 @@ class Layer:
             for neuron in pre_layer.neurons:
                 my_neuron.assing_vertex(id(neuron), random.randint(1,1000))
 
+    def active_layer(self):
+        for my_neuron in self.neurons:
+            my_neuron.active
+
 layer1 = Layer(3)
 print(layer1.neurons)
 layer2 = Layer(3)
