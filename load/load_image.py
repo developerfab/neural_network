@@ -26,7 +26,7 @@ class LoadImage:
         dimension = self.number_rows * self.number_columns
         try:
             for i in range(0, self.number_of_images):
-                image = list(my_file.read(dimension))
+                image = list(my_file.read(784))
                 self.images.append(image)
         finally:
             my_file.close()
@@ -38,8 +38,8 @@ print(l.number_of_images)
 print(l.number_rows)
 print(l.number_columns)
 # print(l.images)
-print("--------------------")
 for image in l.images:
-    for row in (0, 28):
-        print(image[:28])
+    print("--------------------")
+    for row in range(0, 28):
+        print([0 if x<127 else 1 for x in image[:28]])
         del image[:28]
