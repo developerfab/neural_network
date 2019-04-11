@@ -32,6 +32,7 @@ class LoadImage:
             my_file.close()
         my_file.close()
 
+"""
 l = LoadImage('data/t10k-images-idx3-ubyte')
 print(l.header)
 print(l.number_of_images)
@@ -43,3 +44,4 @@ for image in l.images:
     for row in range(0, 28):
         print([0 if x<127 else 1 for x in image[:28]])
         del image[:28]
+"""

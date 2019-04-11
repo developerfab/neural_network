@@ -1,11 +1,12 @@
 # Neuron class
 
 import math
+import random
 
 class Neuron:
     def __init__(self):
         self.value = 0
-        self.bias = 0
+        self.bias = random.random()
         self.vertex_information = { }
         self.my_value = 0
 
@@ -23,10 +24,12 @@ class Neuron:
     Return: -
     """
     def calcule_weigth(self, neuron_weights):
+        print("/////////////////////////////")
         total = 0
         for key in neuron_weights:
             total += self.vertex_information[key] * neuron_weights[key]
         self.value = total - self.bias
+        print(self.value)
 
     """
     activate
@@ -39,6 +42,9 @@ class Neuron:
         temporal_value = self.__logistic_function()
         if (temporal_value > 0):
             self.my_value = temporal_value
+        else:
+            self.my_value = 0
+
 
     """
     assing_vertex
@@ -60,6 +66,26 @@ class Neuron:
     """
     def assing_vertex(self, id_neuron, vertex_weight):
         self.vertex_information[id_neuron] = vertex_weight
+
+    """
+    assing_value
+
+    Public method
+
+    Parameters: 
+    
+    * new_value: Value that going to assing
+
+    This method allow assing directly the value in a neuron, this
+    is util then the neuron belongs to the input layer.
+
+    Return: -
+    """
+    def assing_value(self, new_value):
+        self.my_value = new_value
+
+    def print_my_value(self):
+        print(self.my_value)
 
     # PRIVATE METHODS
 
