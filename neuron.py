@@ -24,12 +24,10 @@ class Neuron:
     Return: -
     """
     def calcule_weigth(self, neuron_weights):
-        print("/////////////////////////////")
         total = 0
         for key in neuron_weights:
             total += self.vertex_information[key] * neuron_weights[key]
         self.value = total - self.bias
-        print(self.value)
 
     """
     activate

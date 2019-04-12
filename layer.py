@@ -29,6 +29,17 @@ class Layer:
         for i in range(1, count+1):
             self.neurons.append(Neuron())
 
+    """
+    assing_vertex
+
+    Public method
+
+    Parameters:
+
+    * pre_layer: Layer object, previous layer.
+
+    This method allow
+    """
     def assing_vertex(self, pre_layer):
         self.pre_layer = pre_layer
 
