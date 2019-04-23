@@ -82,6 +82,16 @@ class Neuron:
     def assing_value(self, new_value):
         self.my_value = new_value
 
+    """
+    print_my_value
+
+    Public method
+
+    This method print the value neuron.
+
+    Return: -
+    """
+
     def print_my_value(self):
         print(self.my_value)
 
