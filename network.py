@@ -1,4 +1,5 @@
 # Network class, create and control the neural network
+import yaml
 
 from layer import Layer 
 from load.load_label import LoadLabel
@@ -85,6 +86,11 @@ class Network:
             print("+++++++++++++++++++++++++++++++++++++")
             layer.print_values()
 
+    def load_configuration(self, name_file):
+        stream = open('networks/'+name_file)
+        yaml_file = yaml.load_all(stream)
+        print(yaml_file)
+
     # PRIVATE
 
     """
@@ -120,3 +126,4 @@ layers_information = [784, 16, 16, 10]
 n = Network(layers_information)
 n.start()
 n.print_network()
+n.load_configuration('handwritten_digits.yml')
