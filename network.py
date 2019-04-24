@@ -6,20 +6,28 @@ from load.load_image import LoadImage
 
 class Network:
     """
-    When the creates a new class, it creates 4 layers:
+    Constructor method
 
-    * 1 layer: 784 neurons
-    * 2 layer: 16 neurons
-    * 3 layer: 16 neurons
-    * 4 layer: 10 neurons
+    Parameters:
 
-    The 4 layers is the output layer
+    * layers_information: Array to contain the number of neurons by layer. e.g:
+
+        [784, 16, 16, 10]
+          +   +   +   +
+          |   |   |   +-----> layer(4) with 10 neurons
+          |   |   |
+          |   |   +---------> layer(3) with 16 neurons
+          |   |
+          |   +-------------> Layer(2) with 16 neurons
+          |
+          +-----------------> Layer(1) with 784 neurons (WARNING: Input layer)
+
     """
-    def __init__(self):
-        self.input_layer = Layer(784)
-        self.second_layer = Layer(16)
-        self.third_layer = Layer(16)
-        self.output_layer = Layer(10)
+    def __init__(self, layers_information):
+        self.layers = []
+        account_layers = len(layers_information)
+        for number_neurons in range(0, account_layers):
+            self.layers.append(Layer(layers_information[number_neurons]))
 
     """
     related_layers
@@ -34,9 +42,8 @@ class Network:
     Return: -
     """
     def related_layers(self):
-        self.second_layer.assing_vertex(self.input_layer)
-        self.third_layer.assing_vertex(self.second_layer)
-        self.output_layer.assing_vertex(self.third_layer)
+        for pre_layer, layer in enumerate(self.layers[1:]):
+            layer.assing_vertex(self.layers[pre_layer])
 
     """
     start
@@ -51,11 +58,10 @@ class Network:
     def start(self):
         images = self.__load_input_data('data/t10k-images-idx3-ubyte')
         first_image = images[0]
-        self.input_layer.assing_neuron_values(first_image)
+        self.__input_layer().assing_neuron_values(first_image)
         self.related_layers()
-        self.second_layer.active_neurons()
-        self.third_layer.active_neurons()
-        self.output_layer.active_neurons()
+        for layer in self.layers[1:]:
+            layer.active_neurons()
 
         """
         When the network is ready uncomment it 
@@ -75,15 +81,9 @@ class Network:
     Return: -
     """
     def print_network(self):
-        print("+++++++++++++++++++++++++++++++++++++")
-        self.input_layer.print_values()
-        print("+++++++++++++++++++++++++++++++++++++")
-        self.second_layer.print_values()
-        print("+++++++++++++++++++++++++++++++++++++")
-        self.third_layer.print_values()
-        print("+++++++++++++++++++++++++++++++++++++")
-        self.output_layer.print_values()
-
+        for layer in self.layers:
+            print("+++++++++++++++++++++++++++++++++++++")
+            layer.print_values()
 
     # PRIVATE
 
@@ -102,7 +102,21 @@ class Network:
     def __load_input_data(self, url):
         return LoadImage(url).images
 
+    """
+    ___input_layer
 
-n = Network()
+    Private method
+
+    This method returns the first layer in self.layers
+
+    Parameters: -
+
+    Return: self.layers[0]
+    """
+    def __input_layer(self):
+        return self.layers[0]
+
+layers_information = [784, 16, 16, 10]
+n = Network(layers_information)
 n.start()
 n.print_network()
