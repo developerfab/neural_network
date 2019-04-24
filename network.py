@@ -12,7 +12,7 @@ class Network:
     * 2 layer: 16 neurons
     * 3 layer: 16 neurons
     * 4 layer: 10 neurons
-    
+
     The 4 layers is the output layer
     """
     def __init__(self):
