@@ -1,5 +1,5 @@
 # Network class, create and control the neural network
-import yaml
+import json
 
 from layer import Layer 
 from load.load_label import LoadLabel
@@ -25,6 +25,7 @@ class Network:
 
     """
     def __init__(self, layers_information):
+        self.configuration = {}
         self.layers = []
         account_layers = len(layers_information)
         for number_neurons in range(0, account_layers):
@@ -86,10 +87,25 @@ class Network:
             print("+++++++++++++++++++++++++++++++++++++")
             layer.print_values()
 
+    """
+    load_configuration
+
+    Public method
+
+    This method load the configuration saved in json file in the folder
+    networks/ , the objective of this file is load the basic configuration
+    like number of layers an neurons in the network.
+
+    This method assing the information saved in the json in self.configuration
+
+    Parameters:
+    * name_file: name file where is the basic network information.
+
+    Returns: -
+    """
     def load_configuration(self, name_file):
-        stream = open('networks/'+name_file)
-        yaml_file = yaml.load_all(stream)
-        print(yaml_file)
+        with open('networks/'+name_file, 'r') as f:
+            self.configuration = json.load(f)
 
     # PRIVATE
 
@@ -126,4 +142,4 @@ layers_information = [784, 16, 16, 10]
 n = Network(layers_information)
 n.start()
 n.print_network()
-n.load_configuration('handwritten_digits.yml')
+n.load_configuration('handwritten_digits.json')
