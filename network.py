@@ -1,12 +1,15 @@
 # Network class, create and control the neural network
 import json
-import marshal
+import pickle
 
 from layer import Layer
 from load.load_label import LoadLabel
 from load.load_image import LoadImage
 
 class Network:
+    def __eq__(self):
+        print('asdf')
+
     def __init__(self):
         self.configuration = {}
         self.layers = []
@@ -14,7 +17,7 @@ class Network:
     """
     create_network
 
-    This method create the network with the specify structure sent in 
+    This method create the network with the specify structure sent in
     self.configuration.
 
     Return: -
@@ -83,6 +86,30 @@ class Network:
             print("+++++++++++++++++++++++++++++++++++++")
             layer.print_values()
 
+    """
+    save_me
+
+    Public method
+
+    This method save the network object and the objects related with it.
+
+    Parameters: -
+
+    Return: -
+    """
+    def save_me(self):
+        url = 'networks/' + self.configuration['name']
+        f = open(url, 'wb')
+        pickle.dump(self, f)
+        f.close()
+
+    @classmethod
+    def load_me(cls, file_name):
+        url = 'networks/' + file_name
+        f = open(url, 'rb')
+        my_object = pickle.load(f)
+        return my_object
+
     # PRIVATE
 
     """
@@ -147,16 +174,13 @@ class Network:
     def __input_layer(self):
         return self.layers[0]
 
-    def save_me(self):
-        # NOT USE marshal, use pickle
-        new_file = 'asdf'
-        marshal.dump(self, new_file)
-
-import marshal
-
 n = Network()
 n.create_network('handwritten_digits.json')
 n.start()
 n.print_network()
-marshal.dump([n], 'fda')
+n.save_me()
+x = Network.load_me('Handwritten digits')
+print('****************************************************')
+print(x.print_network())
+# marshal.dump([n], 'fda')
 # n.load_configuration('')
